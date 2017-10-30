@@ -1,3 +1,4 @@
+```java 
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -7,7 +8,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-```java 
+
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if(p == null && q == null) {
