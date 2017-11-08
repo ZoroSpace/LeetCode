@@ -6,7 +6,8 @@ class Solution {
         else {
             int counter = 0;
             char num = 0;
-            for(int i = 1;i <n;i++) {
+            for(int i = 1;i < n;i++) {
+                counter = 0;
                 result = new StringBuilder();
                 num = lastResult.charAt(0);
                 for(int j = 0;j < lastResult.length();j++) {
