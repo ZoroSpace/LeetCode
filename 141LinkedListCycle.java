@@ -18,7 +18,10 @@ public class Solution {
                 return false;
             }
             else if(head.next.val == Integer.MAX_VALUE) return true;
-            else head = head.next;
+            else {
+                head.next.val = Integer.MAX_VALUE;
+                head = head.next;
+            }
         }
     }
 }
