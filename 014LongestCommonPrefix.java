@@ -18,3 +18,12 @@ class Solution {
         return sb.toString();
     }
 }
+// class Solution {
+//     public String longestCommonPrefix(String[] strs) {
+//         if(strs.length == 0) return "";
+//         Arrays.sort(strs);
+//         while(strs[strs.length-1].indexOf(strs[0]) != 0)
+//             strs[0] = strs[0].substring(0,strs[0].length()-1);
+//         return strs[0];
+//     }
+// }
