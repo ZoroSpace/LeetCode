@@ -4,6 +4,7 @@ class Solution {
         String result = strs[0];
         for(int i = 0;i < strs.length;i++) {
             result = helper(strs[i],result);
+            if(result.length() == 0) return result;
         }
         return result;
     }
