@@ -9,7 +9,6 @@
  */
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
-        
         LinkedList<Integer> result = new LinkedList<>();//试试ArrayList
         if(root == null) return result;
         Stack<TreeNode> lsk = new Stack<>();//left stack
@@ -22,16 +21,18 @@ class Solution {
                 if(nodeX.right != null) rsk.push(nodeX.right);
                 nodeX = nodeX.left;
             }
-            while(lsk.size() >= rsk.size() && (!lsk.empty())) {
+            while((!lsk.empty()) && lsk.peek().right == null) {
                 nodeX = lsk.pop();
                 result.add(nodeX.val);
             }
-            if(nodeX.right != null) rsk.push(nodeX);
-            // if(!lsk.empty()) result.add(lsk.pop().val);
-            // if(!rsk.empty()) {
-            //     nodeX = rsk.pop();
-            //     lsk.push(nodeX);
-            // }
+            if(!lsk.empty()) {
+                nodeX = lsk.pop();
+                result.add(nodeX.val);
+                nodeX = nodeX.right;
+                if(!rsk.empty()) rsk.pop();
+                lsk.push(nodeX);
+            }
+            
         }
         return result;
         
