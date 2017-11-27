@@ -24,3 +24,18 @@ class Solution {
     }
 
 }
+class Solution {
+    public int singleNumber(int[] nums) {
+        int na = 0, nb = 0, nc = 0;
+        int a = 0, b = 0, c = 0;
+        for(int i = 0; i < nums.length; i++){
+            na = (a & ~b & ~c & ~nums[i]) |(~a & b & c & nums[i]);
+            nb = (~a & ~b & c & nums[i]) | (~a & b & ~c) | (~a & b & c & ~nums[i]);
+            nc = ~a & (nums[i] ^ c);
+            a = na;
+            b = nb;
+            c = nc;
+        }
+        return c;
+    }
+}
