@@ -1,10 +1,10 @@
 class Solution {
-    public int singleNumber(int[] nums) {
-        int length = nums.length/3;
-        int result = nums[nums.length - 1];
-        for(int i = 0;i < length;i++) {
-            result = (nums[3*i] ^ nums[3*i+1]) | (nums[3*i] ^ nums[3*i+2]) |(nums[3*i+2] ^ nums[3*i+1] |result ^ nums[3*i+1])|(nums[3*i+2] ^ result)|(nums[3*i+3] ^ result);
+    public int singleNumber(int[] A) {
+        int ones = 0, twos = 0;
+        for(int i = 0; i < A.length; i++){
+            ones = (ones ^ A[i]) & ~twos;
+            twos = (twos ^ A[i]) & ~ones;
         }
-        return result;
+        return ones;
     }
 }
