@@ -1,7 +1,12 @@
+//2 3
+//0 1
+//4
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Arrays.sort(candidates);
-        return helper(candidates,target);
+        List<List<Integer>> result = helper(candidates,target);
+        if(result == null) return new LinkedList<>();
+        else return result;
     }
 
     List<List<Integer>> helper(int[] c, int x) {
@@ -14,20 +19,22 @@ class Solution {
             }
             if(c[i] <= x) break;
         }
-        int[] subC = new int[i];
-        System.arraycopy(c,0,subC,0,i);
+        int[] subC = new int[i+1];
+        int[] ssubC = new int[i];
+        System.arraycopy(c,0,subC,0,i+1);
+        System.arraycopy(c,0,ssubC,0,i);
         if(c[i] == x) {
             List<Integer> list = new LinkedList<>();
             list.add(x);
             result.add(list);
-            if(helper(subC,x) != null) {
-                for(List l1 : helper(subC,x)) {
+            if(helper(ssubC,x) != null) {
+                for(List l1 : helper(ssubC,x)) {
                     result.add(l1);
                 }
             } return result;
         } else {
-            if(helper(subC,x) != null) {
-                for(List l1 : helper(subC,x)) {
+            if(helper(ssubC,x) != null) {
+                for(List l1 : helper(ssubC,x)) {
                     result.add(l1);
                 }
             }
@@ -36,9 +43,8 @@ class Solution {
                     l1.add(c[i]);
                     result.add(l1);
                 }
-                return result;
             }
-            return null;
+            return result;
         }
     }
 }
