@@ -11,6 +11,7 @@ class Solution {
 
     List<List<Integer>> helper(int[] c, int x) {
         List<List<Integer>> result = new LinkedList<>();
+        
         int n = c.length;
         int i;
         for(i = n-1;i >= -1;i--) {
@@ -33,13 +34,16 @@ class Solution {
                 }
             } return result;
         } else {
-            if(helper(ssubC,x) != null) {
-                for(List l1 : helper(ssubC,x)) {
+            List<List<Integer>> result1 = helper(ssubC,x);
+            
+            if(result1 != null) {
+                for(List l1 : result1) {
                     result.add(l1);
                 }
             }
-            if(helper(subC,x-c[i]) != null) {
-                for(List l1 : helper(subC,x-c[i])) {
+            List<List<Integer>> result2 = helper(subC,x-c[i]);
+            if(result2 != null) {
+                for(List l1 : result2) {
                     l1.add(c[i]);
                     result.add(l1);
                 }
