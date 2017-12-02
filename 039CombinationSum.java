@@ -1,6 +1,46 @@
-//2 3
-//0 1
-//4
+class Solution {
+//     public List<List<Integer>> combinationSum(int[] candidates, int target) {
+//         Arrays.sort(candidates);
+//         return helper(candidates,target,candidates.length - 1);
+//     }
+
+//     List<List<Integer>> helper(int[] c, int x, int index) {
+//         List<List<Integer>> result = new LinkedList<>();
+//         boolean flag = true;
+//         for(;index > -1;index--) {
+//             if(c[index] <= x) {
+//                 flag = false;
+//                 break;
+//             }
+//         }
+//         if(flag) return result;
+        
+//         if(c[index] == x) {
+//             List<Integer> l1 = new LinkedList<>();
+//             l1.add(x);
+//             result.add(l1);
+//         }
+//         List<List<Integer>> result1 = helper(c,x-c[index],index);
+//         if(result1.size() != 0) {
+//             for(List l2 : result1) {
+//                 l2.add(c[index]);
+//                 result.add(l2);
+//             }
+//         }
+//         result1 = helper(c,x,index-1);
+//         if(result1.size() != 0) {
+//             for(List l2 : result1) {
+//                 result.add(l2);
+//             }
+//         }
+//         return result;
+//     }
+// }
+
+
+
+
+
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Arrays.sort(candidates);
