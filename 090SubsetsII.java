@@ -8,7 +8,10 @@ class Solution {
         int i = 0,j = 0;
         List l1;
         while(j < nums.length) {
-            while(j < nums.length && nums[i] == nums[j++]);
+            while(nums[i] == nums[j]){
+                j++;
+                if(j == nums.length) break;
+            }
             for(List l : oldResult) {
                 for(int k = 0;k < j-i+1;k++){
                     l1 = (LinkedList)((LinkedList)l).clone();
@@ -19,8 +22,9 @@ class Solution {
                 }
             }
             oldResult = result;
+            result = new LinkedList<>();
             i = j;
         }
-        return result;
+        return oldResult;
     }
 }
