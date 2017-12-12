@@ -11,13 +11,15 @@ class Solution {
         char[] cprChar2;
         for(List<String> list : lastResult) {
             cpr = ((LinkedList<String>)list).getFirst();
-            cprChar1 = cpr.toCharArray();
-            cprChar2 = cur.toCharArray();
-            Arrays.sort(cprChar1);
-            Arrays.sort(cprChar2);
-            if(String.valueOf(cprChar1).equals(String.valueOf(cprChar2))) {
-                list.add(cur);
-                return lastResult;
+            if(cpr.length() == cur.length()) {
+                cprChar1 = cpr.toCharArray();
+                cprChar2 = cur.toCharArray();
+                Arrays.sort(cprChar1);
+                Arrays.sort(cprChar2);
+                if(String.valueOf(cprChar1).equals(String.valueOf(cprChar2))) {
+                    list.add(cur);
+                    return lastResult;
+                }
             }
         }
         List<String> curStrs = new LinkedList<>();
