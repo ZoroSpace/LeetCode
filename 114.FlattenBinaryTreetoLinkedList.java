@@ -13,6 +13,7 @@ class Solution {
         list = helper(list,root);
         int size = list.size();
         for (int i=0; i<size - 1; i++) {
+            list.get(i).left = null;
             list.get(i).right = list.get(i+1);
         }
     }
@@ -20,8 +21,8 @@ class Solution {
     LinkedList<TreeNode> helper(LinkedList<TreeNode> list,TreeNode nodeX) {
         if(nodeX == null) return list;
         list.add(nodeX);
-        if(nodeX.left != null) list = helper(list,nodeX.left);
-        if(nodeX.right != null) list = helper(list,nodeX.right);
+        list = helper(list,nodeX.left);
+        list = helper(list,nodeX.right);
         return list;
     }
 }
