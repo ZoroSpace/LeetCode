@@ -9,20 +9,19 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        LinkedList<TreeeNode> list = helper(root);
+        LinkedList<TreeNode> list = new LinkedList<>();
+        list = helper(list,root);
+        int size = list.size();
+        for (int i=0; i<size - 1; i++) {
+            list.get(i).right = list.get(i+1);
+        }
     }
     
-    void helper(TreeNode nodeX) {
-        TreeNode l;
-        if(nodeX.left != null && nodeX.right != null) {
-            l = helper(nodeX.left);
-            
-        } else if(nodeX.left != null && nodeX.right == null) {
-            
-        } else if(nodeX.left == null && nodeX.right != null) {
-            
-        } else {
-            
-        }
+    LinkedList<TreeNode> helper(LinkedList<TreeNode> list,TreeNode nodeX) {
+        if(nodeX == null) return list;
+        list.add(nodeX);
+        if(nodeX.left != null) list = helper(list,nodeX.left);
+        if(nodeX.right != null) list = helper(list,nodeX.right);
+        return list;
     }
 }
