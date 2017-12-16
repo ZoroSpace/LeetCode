@@ -7,6 +7,7 @@ class Solution {
         Arrays.sort(chArray2);
         if(chArray2[0] < '2' || chArray2[dig.length()-1] > '9') return result;
         result.add(new String());
+        //如果出现其他字符，则作废
         String s0;
         String s1;
         String s2;
@@ -125,6 +126,10 @@ class Solution {
                 default: break;
             }
         }
+        // LinkedList<String> result2 = new LinkedList<>();
+        // for(StringBuilder s : result) {
+        //     result2.add(s.toString());
+        // }
         return result;
     }
 }
