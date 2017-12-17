@@ -20,11 +20,13 @@ class Solution {
         
         for(int i = 0;i <= counter;i++) {
             List<List<Integer>> deeper = helper(nums,sum-i*nums[length-1],length - counter);
-            for(List<Integer> l : deeper) {
-                for(int j = 0;j < i;j++) {
-                    l.add(nums[length-1]);
+            if(deeper != null) {
+                for(List<Integer> l : deeper) {
+                    for(int j = 0;j < i;j++) {
+                        l.add(nums[length-1]);
+                    }
+                    result.add(l);
                 }
-                result.add(l);
             }
         }
         return result;
