@@ -1,15 +1,20 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] c, int t) {
-        List<List<Integer>> result = new LinkedList<>();
+        
         Arrays.sort(c);
-        return helper(c,t,c.length);
+        List<List<Integer>> result = helper(c,t,c.length);
+        if(result == null) return new LinkedList<>();
+        return result;
     }
     
     List<List<Integer>> helper(int[] nums, int sum, int length) {
         if(sum < 0 || (sum > 0 && length == 0)) return null;
         List<List<Integer>> result = new LinkedList<>();
-        result.add(new LinkedList<Integer>());
-        if(sum == 0) return result;
+        
+        if(sum == 0) {
+            result.add(new LinkedList<Integer>());
+            return result;
+        }
         
         
         while(length > 0 && nums[length-1] > sum) length--;
