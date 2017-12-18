@@ -7,14 +7,18 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+//可能为负数
 class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> result = new LinkedList<>();
+        return helper(root,sum);
     }
     
-    List<List<Integer>> helper(List<List<Integer>> lastResult,TreeNode nodeX,int sum) {
-        if(nodeX.left == null && nodeX.right == null && sum == 0) {
-            
-        }
+    List<List<Integer>> helper(TreeNode nodeX,int sum) {
+        if(nodeX.left == null && nodeX.right == null && (sum - nodeX.val == 0) {
+            List<Integer> vals = new LinkedList<>();
+            vals.add(nodeX.val);
+            List<List<Integer>> result = new LinkedList<>();
+            result.add(vals);
+        } else if(nodeX.left != null && nodeX.right == null)
     }
 }
