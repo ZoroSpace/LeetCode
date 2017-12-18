@@ -11,4 +11,10 @@ class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> result = new LinkedList<>();
     }
+    
+    List<List<Integer>> helper(List<List<Integer>> lastResult,TreeNode nodeX,int sum) {
+        if(nodeX.left == null && nodeX.right == null && sum == 0) {
+            
+        }
+    }
 }
