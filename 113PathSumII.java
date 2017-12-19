@@ -37,15 +37,20 @@ class Solution {
                 }
             }
         } else {
-            result = helper(nodeX.left,sum - nodeX.val);
+            List<List<Integer>> lresult = helper(nodeX.left,sum - nodeX.val);
             List<List<Integer>> Rresult = helper(nodeX.right,sum - nodeX.val);
-            if(result != null) {
-                for(List<Integer> l : result) {
+            result = null;
+            if(lresult != null) {
+                result = new LinkedList<>();
+                for(List<Integer> l : lresult) {
                     ((LinkedList<Integer>)l).add(nodeX.val);
+                    result.add(l);
                 }
+                
             }
             if(Rresult != null) {
-                for(List<Integer> l : result) {
+                result = new LinkedList<>();
+                for(List<Integer> l : Rresult) {
                     ((LinkedList<Integer>)l).add(nodeX.val);
                     result.add(l);
                 }
