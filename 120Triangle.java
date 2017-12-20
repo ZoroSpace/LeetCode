@@ -7,9 +7,8 @@ class Solution {
         }
         for(int i = n-2;i > -1;i--) {
             List<Integer> l = triangle.get(i);
-            result[0] = triangle.get(i).get(0) + Math.min(result[0],result[1]);
-            for(int j = 1;j < i;j++) {
-                result[j] = triangle.get(i).get(j) + Math.min(Math.min(result[i-1],result[i]),result[i+1]);
+            for(int j = 0;j < i+1;j++) {
+                result[j] = l.get(j) + Math.min(result[j],result[j+1]);
             }
         }
         return result[0];
