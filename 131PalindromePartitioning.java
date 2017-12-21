@@ -16,19 +16,20 @@ class Solution {
     }
     
     List<List<String>> helper(char[] c,int lo,int hi) {
-        List<List<String>> result;
+        List<List<String>> result = new LinkedList<>();
         for(int i = lo;i < hi;i++) {
             if(isPalindrome(c,lo,i)) {
                 List<String> list = new LinkedList<>();
-                list.add(String.valueOf(copyOfRange(c,lo,i)));
+                list.add(String.valueOf(Arrays.copyOfRange(c,lo,i)));
                 List<List<String>> lastResult = helper(c,i+1,hi);
-                if(lastResult.size() != 0) {
+                if(lastResult != null) {
                     for(List<String> l : lastResult) {
-                        l.add(String.valueOf(copyOfRange(c,lo,i)));
+                        l.add(String.valueOf(Arrays.copyOfRange(c,lo,i)));
+                        result.add(l);
                     }
                 }
             }
         }
-        return lastResult;
+        return result;
     }
 }
