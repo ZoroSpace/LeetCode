@@ -29,7 +29,7 @@ class Solution {
                     List<List<String>> rest = helper(c,i+1,hi);//
                     if(rest != null) {
                         for(List<String> l : rest) {
-                            l.add(String.valueOf(Arrays.copyOfRange(c,lo,i+1)));
+                            l.add(0,String.valueOf(Arrays.copyOfRange(c,lo,i+1)));
                             result.add(l);
                         }
                     }
