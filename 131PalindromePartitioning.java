@@ -17,15 +17,21 @@ class Solution {
     
     List<List<String>> helper(char[] c,int lo,int hi) {
         List<List<String>> result = new LinkedList<>();
-        for(int i = lo;i < hi;i++) {
-            if(isPalindrome(c,lo,i)) {
-                List<String> list = new LinkedList<>();
-                list.add(String.valueOf(Arrays.copyOfRange(c,lo,i)));
-                List<List<String>> lastResult = helper(c,i+1,hi);
-                if(lastResult != null) {
-                    for(List<String> l : lastResult) {
-                        l.add(String.valueOf(Arrays.copyOfRange(c,lo,i)));
-                        result.add(l);
+        LinkedList<String> one = new LinkedList<>();
+        if(lo == hi) {
+            one.add(String.valueOf(Arrays.copyOfRange(c,lo,hi+1)));
+            result.add(one);
+        } else if(lo > hi) {
+            result.add(one);
+        } else {
+            for(int i = lo;i < hi+1;i++) {
+                if(isPalindrome(c,lo,i)) {
+                    List<List<String>> rest = helper(c,i+1,hi);//
+                    if(rest != null) {
+                        for(List<String> l : rest) {
+                            l.add(String.valueOf(Arrays.copyOfRange(c,lo,i+1)));
+                            result.add(l);
+                        }
                     }
                 }
             }
