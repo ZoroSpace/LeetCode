@@ -8,6 +8,11 @@ class Solution {
     List<List<Integer>> helper(int[] nums,int index) {
         List<List<Integer>> newResult = new ArrayList<>();
         ArrayList<Integer> list2;
+        if(nums.length == 0) {
+            list2 = new ArrayList<>();
+            newResult.add(list2);
+            return newResult;
+        }
         int t;
         if(index == 0) {
             list2 = new ArrayList<>();
@@ -23,13 +28,11 @@ class Solution {
             list.set(index,nums[index]);
             for(int i = 0;i < index;i++) {
                 list2 = (ArrayList<Integer>)list.clone();
-                if(nums[index] != list2.get(i)) {
-                    t = list2.get(i);
-                    list2.set(i,list2.get(index));
-                    list2.set(index,t);
-                    newResult.add(list2);
-                }
-                    
+                if(nums[index] == list2.get(i)) break;
+                t = list2.get(i);
+                list2.set(i,list2.get(index));
+                list2.set(index,t);
+                newResult.add(list2);
             }
             newResult.add(list);
         }
