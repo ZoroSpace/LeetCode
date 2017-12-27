@@ -28,7 +28,7 @@ class Solution {
             list.set(index,nums[index]);
             for(int i = 0;i < index;i++) {
                 list2 = (ArrayList<Integer>)list.clone();
-                if(nums[index] == list2.get(i)) break;
+                if(nums[index] == list2.get(i)) break;//break 神来之笔
                 t = list2.get(i);
                 list2.set(i,list2.get(index));
                 list2.set(index,t);
