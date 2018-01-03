@@ -21,17 +21,22 @@ class Solution {
             if(inorder[i] == preorder[ith]) break;
         }
         ith++;
-        TreeNode leftChild = helper(preorder,ith,inorder,lo,i-1);
         if(i != 0) {
             int jth;
             for(jth = 0;i < preorder.length;jth++) {
                 if(inorder[i-1] == preorder[jth]) break;
             }
             jth++;
-        } else ;
-        TreeNode rightChild = helper(preorder,jth,inorder,i+1,hi);
-        root.left = leftChild;
-        root.right = rightChild;
-        return root;
+            TreeNode leftChild = helper(preorder,ith,inorder,lo,i-1);
+            TreeNode rightChild = helper(preorder,jth,inorder,i+1,hi);
+            root.left = leftChild;
+            root.right = rightChild;
+            return root;
+        } else {
+            root.left = null;
+            root.right = helper(preorder,ith+1,inorder,i+1,hi);
+            return root;
+        }
+        
     }
 }
