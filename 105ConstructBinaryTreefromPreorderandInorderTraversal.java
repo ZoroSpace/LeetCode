@@ -13,28 +13,13 @@ class Solution {
         return helper(preorder,inorder,index,0,preorder.length-1);
     }
     TreeNode helper(int[] preorder,int[] inorder,int ith,int lo,int hi) {
-        
-        //preorder: ith,j
-        //inorder:  lo,hi,i
         if(lo > hi) return null;
-        
         TreeNode root = new TreeNode(preorder[ith]);
         int i;
-        for(i = lo;i <= hi;i++) {
-            if(inorder[i] == preorder[ith]) break;
-        }
-        if(i != lo) {
-            int j;
-            for(j = lo;j <= hi;j++) {
-                if(inorder[i-1] == preorder[j]) break;
-            }
-            root.left = helper(preorder,inorder,ith+1,lo,i-1);
-            root.right = helper(preorder,inorder,j+1,i+1,hi);
-        } else {
-            root.left = null;
-            root.right = helper(preorder,inorder,ith+1,i+1,hi);
-            
-        }
+        for(i = lo;i <= hi;i++) if(inorder[i] == preorder[ith]) break;        
+        if(i != lo) root.left = helper(preorder,inorder,ith+1,lo,i-1);
+        else root.left = null;
+        root.right = helper(preorder,inorder,i-lo+ith+1,i+1,hi);
         return root;
     }
 }
