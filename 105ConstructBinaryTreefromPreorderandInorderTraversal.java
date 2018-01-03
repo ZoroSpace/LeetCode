@@ -13,7 +13,10 @@ class Solution {
         return helper(preorder,inorder,index,0,preorder.length-1);
     }
     TreeNode helper(int[] preorder,int[] inorder,int ith,int lo,int hi) {
-        if(lo > hi || ith < 0 || ith > preorder.length-1) return null;
+        
+        //preorder: ith,j
+        //inorder:  lo,hi,i
+        if(lo > hi) return null;
         
         TreeNode root = new TreeNode(preorder[ith]);
         int i;
