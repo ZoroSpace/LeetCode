@@ -9,20 +9,24 @@
  */
 class Solution {
     public List<TreeNode> generateTrees(int n) {
+        return helper(n,1,n);
+    }
+    
+    List<TreeNode> helper(int n,int lo,int hi) {
         List<TreeNode> result = new LinkedList<>();
         TreeNode root;
         if(n == 0) {
         } else if(n == 1) {
-            root = new TreeNode(n);
+            root = new TreeNode(counter);
             result.add(root);
         } else {
             for(int i = 0;i < n;i++) {
-                List<TreeNode> l1 = generateTrees(i);
-                List<TreeNode> l2 = generateTrees(n-1-i);
+                List<TreeNode> l1 = helper(i,i);
+                List<TreeNode> l2 = helper(n-1-i,n-1);
                 if(i != 0 && (n-1-i) != 0) {
                     for(TreeNode nodeX1 : l1) {
                         for(TreeNode nodeX2 : l2) {
-                            root = new TreeNode(n);
+                            root = new TreeNode(counter);
                             root.left = nodeX1;
                             root.right = nodeX2;
                             result.add(root);
@@ -30,13 +34,13 @@ class Solution {
                     }
                 } else if(i == 0) {
                     for(TreeNode nodeX2 : l2) {
-                        root = new TreeNode(n);
+                        root = new TreeNode(counter);
                         root.right = nodeX2;
                         result.add(root);
                     }
                 } else if((n-1-i) == 0) {
                     for(TreeNode nodeX1 : l1) {
-                        root = new TreeNode(n);
+                        root = new TreeNode(counter);
                         root.left = nodeX1;
                         result.add(root);
                     }
