@@ -10,12 +10,12 @@ class Solution {
                 while(lo < hi - 1) {
                     mid = (lo + hi) / 2;
                     delta = target - nums[i] - nums[j] - nums[mid];
-                    if(delta == 0) return 0;
+                    if(delta == 0) return (nums[i] + nums[j] + nums[mid]);
                     else if(delta > 0) lo = mid;
                     else hi = mid;
                 }
                 if(Math.abs(target - nums[i] - nums[j] - nums[lo]) < Math.abs(target - result)) result = nums[i] + nums[j] + nums[lo];
-                if(Math.abs(target - nums[i] - nums[j] - nums[hi]) < Math.abs(target - result)) result = nums[i] + nums[j] + nums[lo];
+                if(Math.abs(target - nums[i] - nums[j] - nums[hi]) < Math.abs(target - result)) result = nums[i] + nums[j] + nums[hi];
             }
         }
         return result;
