@@ -22,11 +22,11 @@ class Solution {
         } else {
             for(int i = 0;i < n;i++) {
                 List<TreeNode> l1 = helper(i,lo,lo + i -1);
-                List<TreeNode> l2 = helper(n-1-i,lo+i,hi-1);
+                List<TreeNode> l2 = helper(n-1-i,lo+i+1,hi);
                 if(i != 0 && (n-1-i) != 0) {
                     for(TreeNode nodeX1 : l1) {
                         for(TreeNode nodeX2 : l2) {
-                            root = new TreeNode(hi);
+                            root = new TreeNode(lo+i);
                             root.left = nodeX1;
                             root.right = nodeX2;
                             result.add(root);
@@ -34,13 +34,13 @@ class Solution {
                     }
                 } else if(i == 0) {
                     for(TreeNode nodeX2 : l2) {
-                        root = new TreeNode(hi);
+                        root = new TreeNode(lo+i);
                         root.right = nodeX2;
                         result.add(root);
                     }
                 } else if((n-1-i) == 0) {
                     for(TreeNode nodeX1 : l1) {
-                        root = new TreeNode(hi);
+                        root = new TreeNode(lo+i);
                         root.left = nodeX1;
                         result.add(root);
                     }
