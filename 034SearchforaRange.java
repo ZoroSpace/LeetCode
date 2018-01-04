@@ -6,7 +6,7 @@ class Solution {
         result[1] = -1;
         
         int lo = 0,hi = nums.length-1,mid = 0;
-        if(nums[lo] > target || nums[hi] < target) return result;
+        if(nums.length == 0 || nums[lo] > target || nums[hi] < target) return result;
         
         while(lo <= hi && !flag) {
             mid = (lo+hi) / 2;
@@ -18,15 +18,17 @@ class Solution {
         int start = mid;
         int left = 0,right = nums.length - 1;
         int mid1 = 0,mid2 = nums.length - 1;
-        while(!(nums[mid1] == target && (mid1 == 0 || nums[mid1-1] != target))) {
+        while(!(nums[mid1] == target && (mid1 == 0 || nums[mid1-1] < target))) {
             mid1 = (left+mid)/2;
             if(nums[mid1] < target) left = mid1+1;
             else mid = mid1;
         }
-        while(!(nums[mid2] == target && (mid1 == nums.length - 1 || nums[mid1+1] != target))) {
-            mid1 = (start+right)/2;
-            if(nums[mid2] > target) right = mid1-1;
-            else start = mid1;
+
+
+        while(!(nums[mid2] == target && (mid2 == nums.length - 1 || nums[mid2+1] > target))) {
+            mid2 = (start+right)/2;
+            if(nums[mid2] > target) right = mid2;
+            else start = mid2;
         }
         result[0] = mid1;
         result[1] = mid2;
