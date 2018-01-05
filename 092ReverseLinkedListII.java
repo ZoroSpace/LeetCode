@@ -8,6 +8,7 @@
  */
 class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
+        if(m == n) return head;
         ListNode s1 = new ListNode(0),s2 = new ListNode(0),s0 = s1,end,cur;
         s1.next = head;
         for(int i = 0;i < m-1;i++) {
