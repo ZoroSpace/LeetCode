@@ -14,7 +14,7 @@ public class Solution {
         ListNode slow = head,fast = head;
         if(fast != null) fast = fast.next;
         int counter = 0;
-        ListNode first = head,second;
+        ListNode first = head,second,third;
         while(fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -26,12 +26,17 @@ public class Solution {
                     fast = fast.next.next;
                     counter++;
                 }
+                second = first;
                 for(int i = 0;i < counter;i++) {
-                    second = first;
                     second = second.next;
-                    if(second != first) first = first.next;
-                    else return first;
                 }
+                third = second;
+                for(int i = 0;i < counter;i++) {
+                    third = third.next;
+                }
+                if(second != first && second != third) first = second;
+                else if(second != first && second == third) first = first.next;
+                else return first;
             }
         }
         return null;
