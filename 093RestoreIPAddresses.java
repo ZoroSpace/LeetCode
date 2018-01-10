@@ -7,7 +7,7 @@ class Solution {
         if(n < 4) return result;
         for(int i = Math.max(1,n-9);i <= Math.min(3,n-3);i++) {
             s1 = s.substring(0,i);
-            if(Integer.parseInt(s1) <= 255) {
+            if(!(s1.length() >= 2 && s1.charAt(0) == '0')&& Integer.parseInt(s1) <= 255) {
                 s2 = s.substring(i);
                 List<String> level1 = helper1(s2);
                 if(level1.size() != 0) {
@@ -27,7 +27,7 @@ class Solution {
         String s2;
         for(int i = Math.max(1,n-6);i <= Math.min(3,n-2);i++) {
             s1 = s.substring(0,i);
-            if(Integer.parseInt(s1) <= 255) {
+            if(!(s1.length() >= 2 && s1.charAt(0) == '0')&& Integer.parseInt(s1) <= 255) {
                 s2 = s.substring(i);
                 List<String> level2 = helper2(s2);
                 if(level2.size() != 0) {
@@ -47,7 +47,7 @@ class Solution {
         String s2;
         for(int i = Math.max(1,n-3);i <= Math.min(3,n-1);i++) {
             s1 = s.substring(0,i);
-            if(Integer.parseInt(s1) <= 255) {
+            if(!(s1.length() >= 2 && s1.charAt(0) == '0')&& Integer.parseInt(s1) <= 255) {
                 s2 = s.substring(i);
                 List<String> level3 = helper3(s2);
                 if(level3.size() != 0) {
@@ -62,7 +62,8 @@ class Solution {
     
     List<String> helper3(String s) {
         List<String> result = new LinkedList<>();
-        if(Integer.parseInt(s) <= 255) result.add(s);
+        if(!(s.length() >= 2 && s.charAt(0) == '0')&& Integer.parseInt(s) <= 255)
+            result.add(s);
         return result;
     }
 }
