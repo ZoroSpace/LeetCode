@@ -1,3 +1,4 @@
+//穿墙版
 class Solution {
     public boolean exist(char[][] board, String word) {
         if(word.length() == 0 || board.length == 0 || board[0].length == 0) return false;
@@ -10,6 +11,7 @@ class Solution {
                     visited[i][j] = true;
                     flag = helper(board,word,1,visited,i,j);
                     if(flag) return true;
+                    else visited[i][j] = false;
                 }
             }
         }
@@ -29,7 +31,6 @@ class Solution {
             if(flag) return true;
             else visited[nextR][nextC] = false;
         }
-        nextR = r;
         nextC = (c-1+n)%n;
         if(!visited[nextR][nextC] && word.charAt(index) == board[nextR][nextC]) {
             visited[nextR][nextC] = true;
@@ -46,7 +47,6 @@ class Solution {
             else visited[nextR][nextC] = false;
         }
         nextR = (r-1+m)%m;
-        nextC = c;
         if(!visited[nextR][nextC] && word.charAt(index) == board[nextR][nextC]) {
             visited[nextR][nextC] = true;
             flag = helper(board,word,index+1,visited,nextR,nextC);
