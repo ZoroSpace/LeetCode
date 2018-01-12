@@ -5,12 +5,11 @@ class Solution {
         Arrays.sort(nums);
         int lo,hi,delta;
         List<Integer> list;
-        for(int i = 0;i < nums.length - 3;i++) {
-            delta = target - nums[i];
-            for(int j = i+1;j < nums.length - 2;j++) {
+        for(int i = 0;i < nums.length - 3;) {
+            for(int j = i+1;j < nums.length - 2;) {
                 lo = j+1;
                 hi = nums.length - 1;
-                delta = target - nums[j];
+                delta = target - nums[i] - nums[j];
                 while(lo < hi) {
                     if(nums[lo] + nums[hi] < delta) lo++;
                     else if(nums[lo] + nums[hi] > delta) hi--;
@@ -22,12 +21,14 @@ class Solution {
                         list.add(nums[hi]);
                         result.add(list);
                         lo++;
-                        while(lo < hi && nums[lo] == nums[lo-1]) {
-                            lo++;
-                        }
+                        while(lo < hi && nums[lo] == nums[lo-1]) lo++;
                     }
                 }
+                j++;
+                while(j < nums.length - 2 && nums[j] == nums[j-1]) j++;
             }
+            i++;
+            while(i < nums.length - 3 && nums[i] == nums[i-1]) i++;
         }
         return result;
     }
