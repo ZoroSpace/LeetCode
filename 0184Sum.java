@@ -15,13 +15,14 @@ class Solution {
                     if(nums[lo] + nums[hi] < delta) lo++;
                     else if(nums[lo] + nums[hi] > delta) hi--;
                     else {
-                        list = new LinkedList();
+                        list = new LinkedList<>();
                         list.add(nums[i]);
                         list.add(nums[j]);
                         list.add(nums[lo]);
                         list.add(nums[hi]);
                         result.add(list);
-                        while(lo < hi && nums[lo] == nums[lo+1]) {
+                        lo++;
+                        while(lo < hi && nums[lo] == nums[lo-1]) {
                             lo++;
                         }
                     }
