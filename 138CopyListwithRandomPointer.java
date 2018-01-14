@@ -23,6 +23,7 @@ public class Solution {
         while(cur1 != null) {
             if(cur2.random != null) cur2.random = map.get(cur2.random);
             cur1 = cur1.next;
+            cur2 = cur2.next;
         }
         return s2.next;
     }
