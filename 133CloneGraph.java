@@ -15,10 +15,10 @@ public class Solution {
         q.offer(node);
         int size;
         UndirectedGraphNode temp;
-        while(!q.empty()) {
+        while(q.size() != 0) {
             size = q.size();
-            for(int i = 0;q < size;q++) {
-                temp = q.pool();
+            for(int i = 0;i < size;i++) {
+                temp = q.poll();
                 if(!visited.contains(temp.label)) {
                     visited.add(temp.label);
                     if(!elements.containsKey(temp.label)) 
@@ -33,19 +33,19 @@ public class Solution {
         }
         visited.clear();
         q.offer(node);
-        while(!q.empty()) {
+        while(q.size() != 0) {
             size = q.size();
             for(int i = 0;i < size;i++) {
-                temp = q.pool();
+                temp = q.poll();
                 if(!visited.contains(temp.label)) {
                     visited.add(temp.label);
                     for(UndirectedGraphNode u : temp.neighbors) {
                         q.offer(u);
-                        elements.getValue(temp.label).neighbors.add(elements.getValue(u.label));
+                        elements.get(temp.label).neighbors.add(elements.get(u.label));
                     }
                 }
             }
         }
-        return map.get(node.label);
+        return elements.get(node.label);
     }
 }
