@@ -27,20 +27,6 @@ public class Solution {
                         q.offer(u);
                         if(!elements.containsKey(u.label))
                             elements.put(u.label,new UndirectedGraphNode(u.label));
-                    }
-                }
-            }
-        }
-        visited.clear();
-        q.offer(node);
-        while(q.size() != 0) {
-            size = q.size();
-            for(int i = 0;i < size;i++) {
-                temp = q.poll();
-                if(!visited.contains(temp.label)) {
-                    visited.add(temp.label);
-                    for(UndirectedGraphNode u : temp.neighbors) {
-                        q.offer(u);
                         elements.get(temp.label).neighbors.add(elements.get(u.label));
                     }
                 }
