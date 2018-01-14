@@ -10,26 +10,18 @@ public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if(node == null) return null;
         HashMap<Integer,UndirectedGraphNode> elements = new HashMap<>();
-        HashSet<Integer> visited = new HashSet<>();
+        elements.put(node.label,new UndirectedGraphNode(node.label));
         Queue<UndirectedGraphNode> q = new LinkedList<>();
         q.offer(node);
-        int size;
         UndirectedGraphNode temp;
         while(q.size() != 0) {
-            size = q.size();
-            for(int i = 0;i < size;i++) {
-                temp = q.poll();
-                if(!visited.contains(temp.label)) {
-                    visited.add(temp.label);
-                    if(!elements.containsKey(temp.label)) 
-                        elements.put(temp.label,new UndirectedGraphNode(temp.label));
-                    for(UndirectedGraphNode u : temp.neighbors) {
-                        q.offer(u);
-                        if(!elements.containsKey(u.label))
-                            elements.put(u.label,new UndirectedGraphNode(u.label));
-                        elements.get(temp.label).neighbors.add(elements.get(u.label));
-                    }
+            temp = q.poll();
+            for(UndirectedGraphNode u : temp.neighbors) {
+                if(!elements.containsKey(u.label)) {
+                    elements.put(u.label,new UndirectedGraphNode(u.label));
+                    q.offer(u);
                 }
+                elements.get(temp.label).neighbors.add(elements.get(u.label));
             }
         }
         return elements.get(node.label);
