@@ -10,7 +10,7 @@ class Solution {
         for(int i = 2;i < dp[0].length;i++) {
             //计算dp[0]
             cur = s.charAt(i);
-            flag = cur == s.charAt(i-1) ? true:false;
+            
             if(cur == s.charAt(dp[0][i-1]-1)) dp[0][i] = dp[0][i-1]-1;
             else {
                 if(cur != s.charAt(i-1))  {
@@ -19,6 +19,7 @@ class Solution {
                     dp[0][i] = flag ? dp[0][i-1] : i-1;
                 }
             }
+            flag = cur == s.charAt(i-1) ? true:false;
             //计算dp[1]
             dp[1][i] = i - dp[0][i];
             longest = Math.max(longest,dp[1][i]);
