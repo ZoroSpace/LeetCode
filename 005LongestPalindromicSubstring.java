@@ -25,7 +25,7 @@ class Solution {
                 match[i].add(i);
             } else {
                 if(!flag) match[i].add(i-1);
-                else match[i].add(match[i-1].get(0));
+                else match[i].add(match[i-1].get(match[i-1].size()-1));//
             }
             flag = cur == s.charAt(i-1) ? true:false;
             
