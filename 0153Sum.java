@@ -6,7 +6,6 @@ class Solution {
         int lo,hi;
         List<Integer> cur;
         for(int i = 0;i < nums.length - 1;) {
-            if(i != 0 && nums[i] == nums[i-1]) i++;
             lo = i+1;
             hi = nums.length - 1;
             while(lo < hi) {
@@ -17,10 +16,14 @@ class Solution {
                     cur.add(nums[i]);
                     result.add(cur);
                     lo++;
+                    while(lo < hi && nums[lo] == nums[lo-1]) lo++;
                     hi--;
+                    while(lo < hi && nums[hi] == nums[hi+1]) hi--;
                 } else if(nums[lo] + nums[hi] + nums[i] < 0) lo++;
                 else hi--;
             }
+            i++;
+            while(i < nums.length && nums[i] == nums[i-1]) i++;
         }
         return result;
     }
