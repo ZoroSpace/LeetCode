@@ -1,5 +1,13 @@
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        boolean flag = false;
+        for(String s : wordList) {
+            if(endWord.equals(s)) {
+                flag = true;
+                break;
+            }
+        }
+        if(!flag) return 0;
         List<String> curStep = new LinkedList<>();
         List<String> nextStep = wordList;
         curStep.add(beginWord);
