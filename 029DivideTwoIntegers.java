@@ -1,26 +1,36 @@
 class Solution {
     public int divide(int dividend, int divisor) {
         //dividend:被除数;divisor:除数;
-        if(dividend < 0 && divisor < 0) return divide(-dividend,-divisor);
-        if(dividend > 0 && divisor < 0) return -divide(dividend,-divisor);
-        if(dividend < 0 && divisor > 0) return -divide(-dividend,divisor);
-        return Integer.parseInt(helper(dividend,divisor).toString());
-    }
-    
-    StringBuilder helper(int n1,int n2) {
+        //-2147483648,2147483647
+        if(dividend == Integer.MIN_VALUE && divisor == Integer.MIN_VALUE) return 1;
+        if(divisor == Integer.MIN_VALUE) return 0;
+        boolean flag = true;
+        if(dividend < 0 && divisor < 0) flag = true;
+        if(dividend > 0 && divisor < 0) flag = false;
+        if(dividend < 0 && divisor > 0) flag = false;
+
         StringBuilder result = new StringBuilder("");
-        if(n1 < n2) return result;
-        String s1 = String.valueOf(n1);
-        String s2 = String.valueOf(n2);
-        
+        String dividendString = String.valueOf(dividend);
+        String divisorString = String.valueOf(divisor);
+        if(dividend < 0) dividendString = dividendString.substring(1);
+        if(divisor < 0) divisorString = divisorString.substring(1);
         int counter = 0;
-        String s3 = s1.substring(0,s2.length());
-        int n3 = Integer.parseInt(s3);
-        while(n3 >= n2) {
-            counter++;
-            n3 = n3 - n2;
+        char last = '0';
+        StringBuilder numString = new StringBuilder("");
+        int n1 = Integer.parseInt(dividendString.substring(0,divisorString.length()));
+        for(int i = 0;i < dividendString.length()-divisorString.length()+1;i++) {
+            numString.delete(0,numString.length());
+            while(n1 >= divisor) {
+                n1 = n1 - divisor;
+                counter++;
+            }
+            result.append(counter);
+            if(i+divisorString.length() == dividendString.length()) break;
+            numString.append(String.valueOf(n1)).append(dividendString.charAt(i+divisorString.length()));
+            n1 = Integer.parseInt(numString.toString());
+            counter = 0;
         }
-        
-        return result.append(counter).append(helper(Integer.parseInt(n3+s1.substring(s2.length())),n2));
+        if(flag) return Integer.parseInt(result.toString());
+        else return Integer.parseInt("-"+result.toString());
     }
 }
