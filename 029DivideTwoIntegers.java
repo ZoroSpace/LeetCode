@@ -2,36 +2,25 @@ class Solution {
     public int divide(int dividend, int divisor) {
         //dividend:被除数;divisor:除数;
         //-2147483648,2147483647
-        if(dividend == Integer.MIN_VALUE && divisor == Integer.MIN_VALUE) return 1;
-        if(divisor == Integer.MIN_VALUE) return 0;
-        boolean flag = true;
-        if(dividend > 0 && divisor > 0) {
-            if(dividend < divisor) return 0;
-            flag = true;
+        if(divisor == Integer.MIN_VALUE) {
+            if(dividend == Integer.MIN_VALUE) return 1;
+            return 0;
         }
-        if(dividend < 0 && divisor < 0) {
-            if(dividend > divisor) return 0;
-            flag = true;
+        if(dividend == Integer.MIN_VALUE) {
+            if(divisor == 1) return dividend;
+            if(divisor == -1) return Integer.MAX_VALUE;
+            if(divisor == 2) return divide(dividend+1,2)-1;
+            if(divisor == -2) return -divide(dividend,2);
+            else dividend = dividend+1;
         }
-        if(dividend > 0 && divisor < 0) {
-            if(-dividend > divisor) return 0;
-            flag = false;
-        }
-        if(dividend < 0 && divisor > 0) {
-            if(dividend > -divisor) return 0;
-            flag =false;
-        }
-
+        
+        if(dividend < 0 && divisor < 0) return divide(-dividend,-divisor);
+        if(dividend > 0 && divisor < 0) return -divide(dividend,-divisor);
+        if(dividend < 0 && divisor > 0) return -divide(-dividend,divisor);
+        if(dividend < divisor) return 0;
         StringBuilder result = new StringBuilder("");
         String dividendString = String.valueOf(dividend);
         String divisorString = String.valueOf(divisor);
-        if(dividend < 0) {
-            dividendString = dividendString.substring(1);
-        }
-        if(divisor < 0) {
-            divisorString = divisorString.substring(1);
-            divisor = Integer.parseInt(divisorString);
-        }
         int counter = 0;
         char last = '0';
         StringBuilder numString = new StringBuilder("");
@@ -48,8 +37,6 @@ class Solution {
             n1 = Integer.parseInt(numString.toString());
             counter = 0;
         }
-        if(flag && result.toString().equals("2147483648")) return 2147483647;
-        if(flag) return Integer.parseInt(result.toString());
-        else return Integer.parseInt("-"+result.toString());
+        return Integer.parseInt(result.toString());
     }
 }
