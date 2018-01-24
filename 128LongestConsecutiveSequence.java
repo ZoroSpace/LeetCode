@@ -1,5 +1,23 @@
 class Solution {
     public int longestConsecutive(int[] nums) {
+        HashMap<Integer,Integer> map1 = new HashMap<>();//map1:lo->hi
+        HashMap<Integer,Integer> map2 = new HashMap<>();//map2:hi->lo
+        int hi,lo,result = 0;
+        for(int i : nums) {
+            if(!map1.containsKey(i)&&!map2.containsKey(i)) {
+                hi = map1.containsKey(i+1) ? map1.get(i+1) : i;
+                lo = map2.containsKey(i-1) ? map2.get(i-1) : i;
+                result = Math.max(result,hi-lo+1);
+                map1.put(lo,hi);
+                map2.put(hi,lo);
+            }
+        }
+        return result;
+    }
+}
+
+class Solution {
+    public int longestConsecutive(int[] nums) {
         if(nums.length == 0) return 0;
         HashMap<Integer,Integer> map1 = new HashMap<>();//map1:lo->hi
         HashMap<Integer,Integer> map2 = new HashMap<>();//map2:hi->lo
