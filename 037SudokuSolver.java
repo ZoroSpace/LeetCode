@@ -6,26 +6,25 @@ class Solution {
                 if(board[i][j] != '.') filled[i][j] = true;
             }
         }
-        if(helper(board,filled)) return;
+        if(helper(board,filled,0,0)) return;
     }
     
-    boolean helper(char[][] board,boolean[][] filled) {
+    boolean helper(char[][] board,boolean[][] filled,int i,int j) {
         if(isFull(filled)) return true;
         boolean flag = false;
-        for(int i = 0;i < 9;i++) {
-            for(int j = 0;j < 9;j++) {
-                if(filled[i][j]) continue;
-                for(char k = '1';k <= '9';k++) {
-                    if(isValid(board,filled,i,j,k)) {
-                        board[i][j] = k;
-                        filled[i][j] = true;
-                        flag = helper(board,filled);
-                        if(flag) return true;
-                        else {
-                            board[i][j] = '.';
-                            filled[i][j] = false;
-                        }
-                    }
+        if(filled[i][j]) {
+            if(j == 8) return helper(board,filled,i+1,0);
+            else return helper(board,filled,i,j+1);
+        }
+        for(char k = '1';k <= '9';k++) {
+            if(isValid(board,filled,i,j,k)) {
+                board[i][j] = k;
+                filled[i][j] = true;
+                flag = j == 8?helper(board,filled,i+1,0):helper(board,filled,i,j+1);
+                if(flag) return true;
+                else {
+                    board[i][j] = '.';
+                    filled[i][j] = false;
                 }
             }
         }
