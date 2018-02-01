@@ -8,41 +8,38 @@
  * }
  */
 class Solution {
-    private LinkedList<TreeNode> list;
+    TreeNode first,second;
     public void recoverTree(TreeNode root) {
-        list = new LinkedList<>();
-        TreeNode left,right;
-        int[] nums;
-        list.add(root);
-        while(list.size() != 0) {
-            list.clear();
-            left = new TreeNode(Integer.MIN_VALUE);
-            right = new TreeNode(Integer.MAX_VALUE);
-            helper(root,left,right);
-            nums = new int[list.size()];
-            for(int i = 0;i < nums.length;i++) nums[i] = list.get(i).val;
-            Arrays.sort(nums);
-            for(int i = 0;i < nums.length;i++) list.get(i).val = nums[i];
-        }
-            
-        return;
-    }
-    
-    void helper(TreeNode cur,TreeNode left,TreeNode right) {
-        if(cur == null) return;
-        int t;
-        if(left.val <= cur.val && cur.val <= right.val) {
-            helper(cur.left,left,cur);
-            helper(cur.right,cur,right);
-        } else {
-            if(cur.val < left.val) {
-                list.add(left);
-                list.add(cur);
+        TreeNode cur = root,pre = null,temp;
+        while(cur != null) {
+            if(cur.left == null) {
+                if(pre != null && pre.val > cur.val) {
+                    if(first == null) first = pre;
+                    second = cur;
+                }
+                pre = cur;
+                cur = cur.right;
             } else {
-                list.add(cur);
-                list.add(right);
+                temp = cur.left;
+                while(temp.right != null && temp.right != cur) {
+                    temp = temp.right;
+                }
+                if(temp.right == null) {
+                    temp.right = cur;
+                    cur = cur.left;
+                } else {
+                    temp.right = null;
+                    if(pre != null && pre.val > cur.val) {
+                        if(first == null) first = pre;
+                        second = cur;
+                    }
+                    pre = cur;
+                    cur = cur.right;
+                }
             }
         }
-        return;
+        int t = first.val;
+        first.val = second.val;
+        second.val = t;
     }
 }
