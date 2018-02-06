@@ -1,7 +1,7 @@
 public class Solution {
-	public int maximalRectangle(char[][] matrix) {
-		if(matrix.length == 0|| matrix[0].length == 0) return 0;
-		int m = matrix.length,n = matrix[0].length;
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix.length == 0|| matrix[0].length == 0) return 0;
+        int m = matrix.length,n = matrix[0].length;
         HashSet<Integer>[][] list = new HashSet[m+1][n+1];
         int r,c,result = 0;
         for(int i = 0;i < m;i++) {
@@ -59,5 +59,6 @@ public class Solution {
             }
         }
         return result;
-	}
+    }
 }
+
