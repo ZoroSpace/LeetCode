@@ -3,7 +3,7 @@ public class Solution {
 		if(matrix.length == 0|| matrix[0].length == 0) return 0;
 		int m = matrix.length,n = matrix[0].length;
         HashSet<Integer>[][] list = new HashSet[m+1][n+1];
-        int min = m*n;
+        int r,c,result = 0;
         for(int i = 0;i < m;i++) {
             for(int j = 0;j < n;j++) {
                 if(matrix[i][j] == '0') list[i+1][j+1] = null;
@@ -13,11 +13,21 @@ public class Solution {
                     if(list[i][j+1] == null && list[i+1][j] == null) {
                     } else if(list[i][j+1] == null) {
                         for(int k : list[i+1][j]) {
-                            if(k/n==i) list[i+1][j+1].add(k);
+                            if(k/n==i) {
+                                list[i+1][j+1].add(k);
+                                r = k/n;
+                                c = k%n;
+                                result = Math.max(result,(i-r+1)*(j-c+1));
+                            }
                         }
                     } else if(list[i+1][j] == null) {
                         for(int k : list[i][j+1]) {
-                            if(k%n==j) list[i+1][j+1].add(k);
+                            if(k%n==j) {
+                                list[i+1][j+1].add(k);
+                                r = k/n;
+                                c = k%n;
+                                result = Math.max(result,(i-r+1)*(j-c+1));
+                            }
                         }
                     } else {
                         int minr = m,minc = n;
@@ -28,24 +38,22 @@ public class Solution {
                             minc = Math.min(minc,k%n);
                         }
                         for(int k : list[i][j+1]) {
-                            if(k%n>=minc) list[i+1][j+1].add(k);
+                            if(k%n>=minc) {
+                                list[i+1][j+1].add(k);
+                                r = k/n;
+                                c = k%n;
+                                result = Math.max(result,(i-r+1)*(j-c+1));
+                            }
+                            
                         }
                         for(int k : list[i+1][j]) {
-                            if(k/n>=minr) list[i+1][j+1].add(k);
+                            if(k/n>=minr) {
+                                list[i+1][j+1].add(k);
+                                r = k/n;
+                                c = k%n;
+                                result = Math.max(result,(i-r+1)*(j-c+1));
+                            }
                         }
-                    }
-                }
-            }
-        }
-        int result = 0;
-        int r,c;
-        for(int i = 0;i < m;i++) {
-            for(int j = 0;j < n;j++) {
-                if(matrix[i][j] == '1') {
-                    for(int k : list[i+1][j+1]) {
-                        r = k/n;
-                        c = k%n;
-                        result = Math.max(result,(i-r+1)*(j-c+1));
                     }
                 }
             }
@@ -53,4 +61,3 @@ public class Solution {
         return result;
 	}
 }
-
