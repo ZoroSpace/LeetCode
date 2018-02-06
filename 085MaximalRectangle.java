@@ -2,13 +2,13 @@ public class Solution {
 	public int maximalRectangle(char[][] matrix) {
 		if(matrix.length == 0|| matrix[0].length == 0) return 0;
 		int m = matrix.length,n = matrix[0].length;
-        ArrayList<Integer>[][] list = new ArrayList[m+1][n+1];
+        HashSet<Integer>[][] list = new HashSet[m+1][n+1];
         int min = m*n;
         for(int i = 0;i < m;i++) {
             for(int j = 0;j < n;j++) {
                 if(matrix[i][j] == '0') list[i+1][j+1] = null;
                 else {
-                    list[i+1][j+1] = new ArrayList<>();
+                    list[i+1][j+1] = new HashSet<>();
                     if(list[i][j+1] == null && list[i+1][j] == null) {
                         list[i+1][j+1].add(i*n+j);
                     } else if(list[i][j+1] == null) {
@@ -26,8 +26,19 @@ public class Solution {
                         list[i+1][j+1].add(min);
                         list[i+1][j+1].add(i*n+j);
                     } else {
-                        for(int k : list[i+1][j]) list[i+1][j+1].add(k);
-                        for(int k : list[i][j+1]) list[i+1][j+1].add(k);
+                        int minr = m,minc = n;
+                        for(int k : list[i][j+1]) {
+                            minr = Math.min(minr,k/n);
+                        }
+                        for(int k : list[i+1][j]) {
+                            minc = Math.min(minc,k%n);
+                        }
+                        for(int k : list[i][j+1]) {
+                            if(k%n>=minc) list[i+1][j+1].add(k);
+                        }
+                        for(int k : list[i+1][j]) {
+                            if(k/n>=minr) list[i+1][j+1].add(k);
+                        }
                     }
                 }
             }
@@ -48,4 +59,3 @@ public class Solution {
         return result;
 	}
 }
-
