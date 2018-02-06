@@ -9,22 +9,16 @@ public class Solution {
                 if(matrix[i][j] == '0') list[i+1][j+1] = null;
                 else {
                     list[i+1][j+1] = new HashSet<>();
+                    list[i+1][j+1].add(i*n+j);
                     if(list[i][j+1] == null && list[i+1][j] == null) {
-                        list[i+1][j+1].add(i*n+j);
                     } else if(list[i][j+1] == null) {
-                        min = m*n;
                         for(int k : list[i+1][j]) {
-                            if(k/n==i) min = Math.min(k,min);
+                            if(k/n==i) list[i+1][j+1].add(k);
                         }
-                        list[i+1][j+1].add(min);
-                        list[i+1][j+1].add(i*n+j);
                     } else if(list[i+1][j] == null) {
-                        min = m*n;
                         for(int k : list[i][j+1]) {
-                            if(k%n==j) min = Math.min(k,min);
+                            if(k%n==j) list[i+1][j+1].add(k);
                         }
-                        list[i+1][j+1].add(min);
-                        list[i+1][j+1].add(i*n+j);
                     } else {
                         int minr = m,minc = n;
                         for(int k : list[i][j+1]) {
@@ -59,3 +53,4 @@ public class Solution {
         return result;
 	}
 }
+
