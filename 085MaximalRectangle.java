@@ -1,64 +1,41 @@
-public class Solution {
-    public int maximalRectangle(char[][] matrix) {
-        if(matrix.length == 0|| matrix[0].length == 0) return 0;
-        int m = matrix.length,n = matrix[0].length;
-        HashSet<Integer>[][] list = new HashSet[m+1][n+1];
-        int r,c,result = 0;
+class Solution {
+    public int maximalRectangle(char[][] a) {
+        if(a.length == 0 || a[0].length == 0) return 0;
+        int m = a.length,n = a[0].length;
+        int[] height = new int[n],left = new int[n],right = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        int result = 0;
         for(int i = 0;i < m;i++) {
             for(int j = 0;j < n;j++) {
-                if(matrix[i][j] == '0') list[i+1][j+1] = null;
+                if(a[i][j] == '0') height[j] = 0;
+                else height[j] = height[j]+1;
+            }
+            stack.clear();
+            stack.push(0);
+            for(int j = 1;j < n;j++) {
+                if(height[j] > height[j-1]) left[j] = j;
+                else if(height[j] == height[j-1]) left[j] = left[j-1];
                 else {
-                    list[i+1][j+1] = new HashSet<>();
-                    list[i+1][j+1].add(i*n+j);
-                    if(list[i][j+1] == null && list[i+1][j] == null) {
-                    } else if(list[i][j+1] == null) {
-                        for(int k : list[i+1][j]) {
-                            if(k/n==i) {
-                                list[i+1][j+1].add(k);
-                                r = k/n;
-                                c = k%n;
-                                result = Math.max(result,(i-r+1)*(j-c+1));
-                            }
-                        }
-                    } else if(list[i+1][j] == null) {
-                        for(int k : list[i][j+1]) {
-                            if(k%n==j) {
-                                list[i+1][j+1].add(k);
-                                r = k/n;
-                                c = k%n;
-                                result = Math.max(result,(i-r+1)*(j-c+1));
-                            }
-                        }
-                    } else {
-                        int minr = m,minc = n;
-                        for(int k : list[i][j+1]) {
-                            minr = Math.min(minr,k/n);
-                        }
-                        for(int k : list[i+1][j]) {
-                            minc = Math.min(minc,k%n);
-                        }
-                        for(int k : list[i][j+1]) {
-                            if(k%n>=minc) {
-                                list[i+1][j+1].add(k);
-                                r = k/n;
-                                c = k%n;
-                                result = Math.max(result,(i-r+1)*(j-c+1));
-                            }
-                            
-                        }
-                        for(int k : list[i+1][j]) {
-                            if(k/n>=minr) {
-                                list[i+1][j+1].add(k);
-                                r = k/n;
-                                c = k%n;
-                                result = Math.max(result,(i-r+1)*(j-c+1));
-                            }
-                        }
-                    }
+                    while(stack.size() != 0 && height[stack.peek()] >= height[j]) stack.pop();
+                    if(stack.size() == 0) left[j] = 0;
+                    else left[j] = stack.peek() + 1;
+                }
+                stack.push(j);
+            }
+            stack.clear();
+            stack.push(n-1);
+            for(int j = n-2;j >=0;j--) {
+                if(height[j] > height[j+1]) right[j] = j;
+                else if(height[j] == height[j+1]) right[j] = right[j+1];
+                else {
+                    while(stack.size() != 0 && height[stack.peek()] >= height[j]) stack.pop();
+                    if(stack.size() == 0) right[j] = n-1;
+                    else right[j] = stack.peek()-1;
+                    stack.push(j);
                 }
             }
+            for(int j = 0;j < n;j++) result = Math.max(result,(right[j] - left[j] + 1) * height[j]);
         }
         return result;
     }
 }
-
