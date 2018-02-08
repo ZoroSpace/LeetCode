@@ -14,7 +14,6 @@ class Solution {
             stack.push(0);
             for(int j = 1;j < n;j++) {
                 if(height[j] > height[j-1]) left[j] = j;
-                else if(height[j] == height[j-1]) left[j] = left[j-1];
                 else {
                     while(stack.size() != 0 && height[stack.peek()] >= height[j]) stack.pop();
                     if(stack.size() == 0) left[j] = 0;
@@ -24,15 +23,15 @@ class Solution {
             }
             stack.clear();
             stack.push(n-1);
+            right[n-1] = n-1;
             for(int j = n-2;j >=0;j--) {
                 if(height[j] > height[j+1]) right[j] = j;
-                else if(height[j] == height[j+1]) right[j] = right[j+1];
                 else {
                     while(stack.size() != 0 && height[stack.peek()] >= height[j]) stack.pop();
                     if(stack.size() == 0) right[j] = n-1;
                     else right[j] = stack.peek()-1;
-                    stack.push(j);
                 }
+                stack.push(j);
             }
             for(int j = 0;j < n;j++) result = Math.max(result,(right[j] - left[j] + 1) * height[j]);
         }
