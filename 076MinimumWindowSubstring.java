@@ -1,5 +1,6 @@
 class Solution {
     public String minWindow(String s, String t) {
+        if(s.length() < t.length()) return "";
         //在匹配失败后最多地移动字符串
         HashMap<Character,Integer> dic = new HashMap<>();
         HashMap<Character,Integer> ref = new HashMap<>();
@@ -11,14 +12,14 @@ class Solution {
             ref.put(c,0);
         }
         int resultlo = 0,resulthi = s.length();
-        int lo = 0,hi;
-        while(!dic.containsKey(s.charAt(lo))) lo++;
-        hi = lo;
+        int lo = 0,hi = 0;
         boolean flag = false;
-        while(lo < hi) {
+        int oldlo = -1,oldhi = -1;
+        while(oldhi != s.length() || hi-lo != oldhi-oldlo) {
+            oldhi = hi;
+            oldlo = lo;
             while(!contained(dic,ref)) {
                 if(hi == s.length()) break;
-                while(!ref.containsKey(s.charAt(hi))) hi++;
                 if(ref.containsKey(s.charAt(hi)))
                     ref.put(s.charAt(hi),ref.get(s.charAt(hi))+1);
                 hi++;
@@ -29,10 +30,11 @@ class Solution {
                     resultlo = lo;
                     resulthi = hi;
                 }
+                if(ref.containsKey(s.charAt(lo))) ref.put(s.charAt(lo),ref.get(s.charAt(lo))-1);
+                lo++;
+                while(lo < s.length() && !ref.containsKey(s.charAt(lo))) lo++;
             }
-            ref.put(s.charAt(lo),ref.get(s.charAt(lo))-1);
-            lo++;
-            while(!ref.containsKey(s.charAt(lo))) lo++;
+            
         }
         if(!flag) return "";
         else return s.substring(resultlo,resulthi);
