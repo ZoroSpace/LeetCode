@@ -24,3 +24,23 @@ class Solution {
         return result;
     }
 }
+
+
+class Solution {
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        if(n <= 1) return n;
+        int[] c = new int[n];
+        c[0] = 1;
+        for(int i = 1;i < n;i++) {
+            if(ratings[i]>ratings[i-1]) c[i] = c[i-1]+1;
+            else c[i] = 1;
+        }
+        int result = c[n-1];
+        for(int i = n-2;i > -1;i--) {
+            if(ratings[i]>ratings[i+1]) c[i] = Math.max(c[i],c[i+1]+1);
+            result += c[i];
+        }
+        return result;
+    }
+}
