@@ -74,3 +74,41 @@ class Solution {
     }
 }
 
+class Solution {
+    HashMap<Integer,Integer> map;
+    int r;
+    public int minCut(String s) {
+        int n = s.length();
+        if(n <= 1) return 0;
+        map = new HashMap<>();
+        r = n;
+        for(int i = 0;i < n;i++) {
+            for(int j = i+1;j < n;j++) {
+                if(isP(s,i,j)) map.put(i,j);
+            }
+        }
+        helper(s,-1,0,n);
+        return r - 1;
+        
+    }
+    void helper(String s,int lo,int level,int left) {
+        if(level > r) return;
+        boolean flag = true;
+        for(int i : map.keySet()) {
+            if(i > lo) {
+                helper(s,map.get(i),level+1,left-(map.get(i)-i+1));
+                flag = false;
+            }
+        }
+        if(flag) r = Math.min(r,level+left);
+        return;
+    }
+    boolean isP(String s,int lo,int hi) {
+        while(lo < hi) {
+            if(s.charAt(lo) != s.charAt(hi)) return false;
+            lo++;
+            hi--;
+        }
+        return true;
+    }
+}
