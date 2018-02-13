@@ -147,3 +147,24 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public int minCut(String s) {
+        int n = s.length();
+        if(n <= 1) return 0;
+        boolean[][] isP = new boolean[n][n];
+        int[] count = new int[n+1];
+        for(int i = n-1;i > -1;i--) {
+            count[i] = n;
+            isP[i][i] = true;
+            for(int j = i;j < n;j++) {
+                if(i == j || s.charAt(i) == s.charAt(j)&&(isP[i+1][j-1] || j == i+1))
+                {
+                    isP[i][j] = true;
+                    count[i] = Math.min(count[i],1+count[j+1]);
+                }
+            }
+        }
+        return count[0] - 1;
+    }
+}
