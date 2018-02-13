@@ -112,3 +112,38 @@ class Solution {
         return true;
     }
 }
+
+
+class Solution {
+    boolean[][] visited;
+    boolean[][] isP;
+    int result;
+    public int minCut(String s) {
+        int n = s.length();
+        if(n <= 1) return 0;
+        result = n;
+        visited = new boolean[n][n];
+        isP = new boolean[n][n];
+        for(int i = n-1;i > -1;i--) {
+            isP[i][i] = true;
+            for(int j = i+1;j < n;j++) {
+                if(s.charAt(i) == s.charAt(j)&&(isP[i+1][j-1] || j == i+1))
+                    isP[i][j] = true;
+            }
+        }
+        dfs(s,0,0);
+        return result - 1;
+    }
+    
+    void dfs(String s,int index,int level) {
+        if(index == s.length()) {
+            result = Math.min(result,level);
+            return;
+        }
+        if(visited[level][index]) return;
+        visited[level][index] = true;
+        for(int i = s.length()-1;i >= index;i--) {
+            if(isP[index][i] && level < result) dfs(s,i+1,level+1);
+        }
+    }
+}
