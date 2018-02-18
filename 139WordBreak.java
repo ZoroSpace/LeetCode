@@ -13,3 +13,20 @@ class Solution {
         return dp[0];
     }
 }
+
+
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        boolean[] dp = new boolean[n+1];
+        dp[0] = true;
+        for(int i = 1;i <= n;i++) {
+            if(dp[i-1]) {
+                for(String string : wordDict) {
+                    if(s.startsWith(string,i-1)) dp[i-1+string.length()] = true;
+                }
+            }
+        }
+        return dp[n];
+    }
+}
