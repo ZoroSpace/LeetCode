@@ -68,3 +68,40 @@ class Solution {
         return true;
     }
 }
+
+
+class Solution {
+    public boolean isMatch(String s1, String s2) {
+        int n1 = s1.length(),n2 = s2.length();
+        boolean[][] a = new boolean[n1+1][n2+1];
+        a[0][0] = true;
+        int ns = 0;
+        for(int i = 1;i < n2+1;i++) {
+            if(s2.charAt(i-1) == '*') ns++;
+            else ns--;
+            if(ns == 0) a[0][i] = true;
+        }
+        
+        for(int i = 1;i < n1+1;i++) {
+            for(int j = 1;j < n2+1;j++) {
+                if(a[i][j]) {
+                    continue;
+                }
+                if(s1.charAt(i-1) == s2.charAt(j-1) || s2.charAt(j-1) == '.') {
+                    a[i][j] = a[i-1][j-1];
+                } else if(s2.charAt(j-1) == '*') {
+                    a[i][j] = a[i][j-1]||a[i][j-2];
+                    if(a[i][j]) {
+                        int t = i;
+                        while(t+1 <= s1.length()&&(s2.charAt(j-2) == '.' || s1.charAt(t) == s2.charAt(j-2))) {
+                            a[t+1][j] = true;
+                            t = t+1;
+                        }
+                    }
+                }
+                
+            }
+        }
+        return a[n1][n2];
+    }
+}
