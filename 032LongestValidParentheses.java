@@ -24,3 +24,41 @@ class Solution {
         return result;
     }
 }
+
+
+class Solution {
+    public int longestValidParentheses(String s) {
+        int n = s.length();
+        Stack<Integer> stack = new Stack<>();
+        int result = 0;
+        int counter;
+        for(int i = 0;i < n;i++) {
+            counter = 0;
+            while(!stack.empty() && stack.peek() != -1 && stack.peek() != -2) {
+                counter = stack.pop() + counter;
+            }
+            if(s.charAt(i) == '(') {
+                stack.push(counter);
+                stack.push(-1);
+            } else {
+                if(!stack.empty() && stack.peek() == -1) {
+                    stack.pop();
+                    stack.push(counter+2);
+                } else {
+                    stack.push(counter);
+                    stack.push(-2);
+                }
+                
+            }            
+        }
+        counter = 0;
+        for(int i : stack) {
+            if(i == -1 || i == -2) counter = 0;
+            else {
+                counter += i;
+                result = Math.max(result,counter);
+            }
+        }
+        return result;
+    }
+}
