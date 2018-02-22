@@ -45,3 +45,52 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> result = new LinkedList<>();
+        HashMap<String,Integer> map =  new HashMap<>();
+        int n = words[0].length();
+        if(n == 0) {
+            for(int i = 0;i <= s.length();i++) result.add(i);
+            return result;
+        }
+        String next;
+        String pre;
+        for(int i = 0;i < n;i++) {
+            int counter = 0;
+            map.clear();
+            for(String word:words) {
+                counter++;
+                if(map.containsKey(word)) map.put(word,map.get(word)+1);
+                else map.put(word,1);
+            }
+            int slow = i,fast = slow;
+            while(fast+n <= s.length()) {
+                pre = s.substring(slow,slow+n);
+                next = s.substring(fast,fast+n);
+                if(map.containsKey(next)&&map.get(next) > 0) {
+                    map.put(next,map.get(next)-1);
+                    fast = fast+n;
+                    counter--;
+                    if(counter == 0) {
+                        result.add(slow);
+                        map.put(pre,map.get(pre)+1);
+                        slow = slow+n;
+                        counter++;
+                    }
+                } else {
+                    if(slow == fast) {
+                        slow = slow+n;
+                        fast = slow;
+                    } else {
+                        map.put(pre,map.get(pre)+1);
+                        slow = slow+n;
+                        counter++;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}
