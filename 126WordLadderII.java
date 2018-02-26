@@ -1,43 +1,44 @@
 //单向bfs
-public class Solution {
-    public List<List<String>> findLadders(String beginWord,String endWord,List<String> dict) {
-        List<List<String>> result = new LinkedList<>();
-        if(!dict.contains(endWord)) return result;
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        LinkedList<List<String>> result = new LinkedList<>();
+        HashSet<String> visited = new HashSet<>();
+        HashSet<String> dict = new HashSet<>(wordList);
         Queue<LinkedList<String>> q = new LinkedList<>();
-        LinkedList<String> elem = new LinkedList<>();
-        HashSet<String> set = new HashSet<String>(dict);
-        elem.offerFirst(beginWord);
-        q.offer(elem);
-        int size = q.size();
-        LinkedList<String> cur;
-        String last;
-        String change;
-        LinkedList plus;
+        LinkedList<String> first = new LinkedList<>();
+        first.offerFirst(beginWord);
+        q.offer(first);
+        visited.add(beginWord);
         boolean found = false;
-        //bfs
         while(q.size() != 0 && !found) {
-            size = q.size();
+            int size = q.size();
+            HashSet<String> set = new HashSet<>();
             for(int i = 0;i < size;i++) {
-                cur = q.poll();
-                HashSet<String> curSet = new HashSet<String>(cur);
-                last = cur.peekLast();
+                LinkedList<String> cur = q.poll();
+                String last = cur.peekLast();
+                char[] ch = last.toCharArray();
                 for(int j = 0;j < last.length();j++) {
-                    for(char k = 'a';k <= 'z';k++) {
-                        if(k != last.charAt(j)) {
-                            change = last.substring(0,j)+ k + last.substring(j+1,last.length());
-                            if(!change.equals(beginWord) && !curSet.contains(change) && set.contains(change)) {
-                                plus = (LinkedList)(cur.clone());
-                                plus.offerLast(change);
-                                q.offer(plus);
-                                if(change.equals(endWord)) found = true;
+                    for(char c = 'a';c <= 'z';c++) {
+                        if(c != ch[j]) {
+                            ch[j] = c;
+                            String change = String.valueOf(ch);
+                            ch[j] = last.charAt(j);
+                            if(!visited.contains(change) && dict.contains(change)) {
+                                LinkedList<String> list = (LinkedList<String>)(cur.clone());
+                                list.offerLast(change);
+                                q.offer(list);
+                                set.add(change);
+                                if(change.equals(endWord)) {
+                                    result.add(list);
+                                    found = true;
+                                }
                             }
                         }
                     }
-                }                                                                                               
+                }
+                
             }
-        }
-        for(LinkedList<String> list : q) {
-            if(list.peekLast().equals(endWord)) result.add(list);
+            visited.addAll(set);
         }
         return result;
     }
