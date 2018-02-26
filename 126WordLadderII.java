@@ -1,3 +1,4 @@
+//单向bfs
 public class Solution {
     public List<List<String>> findLadders(String beginWord,String endWord,List<String> dict) {
         List<List<String>> result = new LinkedList<>();
