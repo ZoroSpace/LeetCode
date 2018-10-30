@@ -40,8 +40,35 @@ class Solution:
             
         
         
-            
-        
+class Solution:
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        if root == None:
+            return []
+        path = []
+        ans = []
+        path.append(root)
+        self.helper(root, path,ans)
+        return ans
+    
+    
+    def helper(self,node,path,ans):
+        if node.left == None and node.right == None:
+            s = "->"
+            vals = []
+            for i in path:
+                vals.append(str(i.val))
+            ans.append(s.join(vals))
+            return
+        for nodex in (node.left, node.right):
+            if nodex != None:
+                path.append(nodex)
+                self.helper(nodex,path,ans)
+                path.remove(nodex)
+        return  
         
         
         
