@@ -12,6 +12,7 @@ class Solution:
         :type root: TreeNode
         :rtype: List[str]
         """
+        self.ans = []
         if root == None:
             return self.ans
         path = []
